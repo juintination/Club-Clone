@@ -45,4 +45,11 @@ public class ClubMemberTests {
             repository.save(clubMember);
         });
     }
+
+    @Test
+    public void testRead() {
+        Optional<ClubMember> result = repository.findByEmail("user55@test.com", false);
+        ClubMember clubMember = result.get();
+        System.out.println(clubMember);
+    }
 }
