@@ -23,9 +23,9 @@ public class ClubMemberTests {
 
     @Test
     public void insertDummies() {
-        IntStream.rangeClosed(1,100).forEach(i -> {
+        IntStream.rangeClosed(1, 100).forEach(i -> {
             ClubMember clubMember = ClubMember.builder()
-                    .email("user" + i + "test.com")
+                    .email("user" + i + "@test.com")
                     .name("USER" + i)
                     .fromSocial(false)
                     .roleSet(new HashSet<ClubMemberRole>())
