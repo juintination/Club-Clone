@@ -22,16 +22,6 @@ public class SecurityConfig {
     }
 
     @Bean
-    public InMemoryUserDetailsManager userDetailsService() {
-        UserDetails user = User.builder()
-                .username("user")
-                .password("$2a$10$9ke47d0H0huQDBOm3phf2uDWi0PqQjGf1iOcAhXgtRs2IMqZQAXGm")
-                .roles("USER")
-                .build();
-        return new InMemoryUserDetailsManager(user);
-    }
-
-    @Bean
     public SecurityFilterChain filterChain(final HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(auth -> auth
                 .requestMatchers("/sample/all").permitAll()
