@@ -35,6 +35,9 @@ public class SecurityConfig {
         http.oauth2Login(config -> {
             config.successHandler(successHandler());
         });
+        http.rememberMe(config -> {
+            config.tokenValiditySeconds(60 * 60 * 24 * 7); // 7days
+        });
         return http.build();
     }
 
