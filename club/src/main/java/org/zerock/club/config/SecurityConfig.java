@@ -10,7 +10,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.zerock.club.security.handler.ClubLoginSuccessHandler;
+import org.zerock.club.security.filter.ApiCheckFilter;
 
 @Configuration
 @Log4j2
@@ -38,10 +40,16 @@ public class SecurityConfig {
         http.rememberMe(config -> {
             config.tokenValiditySeconds(60 * 60 * 24 * 7); // 7days
         });
+        http.addFilterBefore(apiCheckFilter(), UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 
     private AuthenticationSuccessHandler successHandler() {
         return new ClubLoginSuccessHandler(passwordEncoder());
+    }
+
+    @Bean
+    public ApiCheckFilter apiCheckFilter() {
+        return new ApiCheckFilter("/notes/**/*");
     }
 }
